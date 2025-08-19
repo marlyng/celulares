@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechRepair Pro - Reparación de Celulares y Accesorios</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(240, 147, 251, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(118, 75, 162, 0.4) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(90deg, transparent 49%, rgba(255,255,255,0.02) 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, rgba(255,255,255,0.02) 50%, transparent 51%);
+            background-size: 50px 50px;
+            animation: shimmer 30s linear infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(1deg); }
+            66% { transform: translate(-20px, 20px) rotate(-1deg); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100px) translateY(-100px); }
+            100% { transform: translateX(100px) translateY(100px); }
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Language Detection */
+        .language-detector {
+            display: none;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
+        }
+
+        .logo i {
+            color: #667eea;
+            font-size: 2rem;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .language-toggle {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .language-toggle:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            padding: 120px 0 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            text-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(37, 211, 102, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 4rem;
+            color: white;
+            background: linear-gradient(135deg, #1c1c1d, #050505);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: rotate 20s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 100px 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+            background-size: 30px 30px;
+            animation: productFloat 15s linear infinite;
+        }
+
+        @keyframes productFloat {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .product-image i {
+            font-size: 4rem;
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Map Section */
+        .map-section {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .map-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            animation: bounce 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.95);
+                flex-direction: column;
+                padding: 2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .services-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 24px;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+
+    <!-- Language Detector -->
+    <div class="language-detector" id="language-detector"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-mobile-alt"></i>
+                <span data-translate="logo">TechRepair Pro</span>
+            </a>
+            
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#services" data-translate="nav-services">Servicios</a></li>
+                <li><a href="#products" data-translate="nav-products">Productos</a></li>
+                <li><a href="#location" data-translate="nav-location">Ubicación</a></li>
+                <li>
+                    <button class="language-toggle" onclick="toggleLanguage()">
+                        <i class="fas fa-globe"></i>
+                        <span id="current-lang">ES</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 data-translate="hero-title">Reparación Profesional de Celulares</h1>
+                    <p data-translate="hero-subtitle">Servicio rápido, confiable y garantizado. Especialistas en pantallas, baterías y más. Vidrios templados y accesorios de alta calidad.</p>
+                    <div class="cta-buttons">
+                        <a href="#services" class="btn-primary">
+                            <i class="fas fa-tools"></i>
+                            <span data-translate="hero-services">Ver Servicios</span>
+                        </a>
+                        <a href="https://wa.me/573214567890?text=Hola,%20necesito%20reparar%20mi%20celular" class="btn-whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span data-translate="hero-whatsapp">Contactar por WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services">
+            <div class="container">
+                <h2 class="section-title fade-in" data-translate="services-title">Nuestros Servicios</h2>
+                <div class="services-grid">
+                    <div class="service-card fade-in">
+                        <i class="service-icon fas fa-mobile-screen"></i>
+                        <h3 data-translate="service-screen">Reparación de Pantallas</h3>
+                        <p data-translate="service-screen-desc">Cambio de pantallas LCD y OLED con garantía de 3 meses. Trabajamos con todas las marcas: iPhone, Samsung, Huawei, Xiaomi y más.</p>
+                    </div>
+                    
+                    <div class="service-card fade-in">
+                        <i class="service-icon fas fa-battery-half"></i>
+                        <h3 data-translate="service-battery">Cambio de Baterías</h3>
+                        <p data-translate="service-battery-desc">Baterías originales y compatibles de alta calidad. Recupera la autonomía de tu celular con garantía extendida.</p>
+                    </div>
+                    
+                    <div class="service-card fade-in">
+                        <i class="service-icon fas fa-droplet"></i>
+                        <h3 data-translate="service-water">Reparación por Agua</h3>
+                        <p data-translate="service-water-desc">Servicio de emergencia 24/7 para daños por líquidos. Limpieza especializada y recuperación de datos.</p>
+                    </div>
+                    
+                    <div class="service-card fade-in">
+                        <i class="service-icon fas fa-microchip"></i>
+                        <h3 data-translate="service-motherboard">Reparación de Placa</h3>
+                        <p data-translate="service-motherboard-desc">Microsoldadura y reparación de componentes. Solucionamos problemas de carga, audio y conectividad.</p>
+                    </div>
+                    
+                    <div class="service-card fade-in">
+                        <i class="service-icon fas fa-unlock"></i>
+                        <h3 data-translate="service-unlock">Liberación de Equipos</h3>
+                        <p data-translate="service-unlock-desc">Liberación por IMEI para todas las operadoras. Servicio rápido y seguro con garantía total.</p>
+                    </div>
+                    
+                    <div class="service-card fade-in">
+                        <i class="service-icon fas fa-broom"></i>
+                        <h3 data-translate="service-maintenance">Mantenimiento</h3>
+                        <p data-translate="service-maintenance-desc">Limpieza profunda, actualización de software y optimización del rendimiento de tu dispositivo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="products">
+            <div class="container">
+                <h2 class="section-title fade-in" data-translate="products-title">Productos y Accesorios</h2>
+                <div class="products-grid">
+                    <div class="product-card fade-in">
+                        <div class="product-image">
+                            <i class="fas fa-car-battery"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-translate="product-parts">Repuestos Originales</h3>
+                            <p data-translate="product-parts-desc">Pantallas, baterías, cámaras y otros componentes originales con garantía extendida.</p>
+                            <div class="product-price">$35.000 - $180.000</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-translate="product-parts">Repuestos Originales</h3>
+                            <p data-translate="product-parts-desc">Pantallas, baterías, cámaras y otros componentes originales con garantía extendida.</p>
+                            <div class="product-price">$35.000 - $180.000</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-translate="product-parts">Repuestos Originales</h3>
+                            <p data-translate="product-parts-desc">Pantallas, baterías, cámaras y otros componentes originales con garantía extendida.</p>
+                            <div class="product-price">$35.000 - $180.000</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 data-translate="product-parts">Repuestos Originales</h3>
+                            <p data-translate="product-parts-desc">Pantallas, baterías, cámaras y otros componentes originales con garantía extendida.</p>
+                            <div class="product-price">$35.000 - $180.000</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location" class="map-section">
+            <div class="container">
+                <h2 class="section-title fade-in" data-translate="location-title">Nuestra Ubicación</h2>
+                <div class="map-container fade-in">
+                    <div>
+                        <i class="fas fa-map-marker-alt" style="font-size: 3rem; color: #667eea; margin-bottom: 1rem;"></i>
+                        <h3 data-translate="find-us">Encuéntranos Fácilmente</h3>
+                        <p data-translate="map-description">Estamos ubicados en el centro de la ciudad, fácil acceso y parqueadero disponible</p>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-item fade-in">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong data-translate="address">Dirección:</strong><br>
+                                <span data-translate="address-detail">Calle 123 #45-67, Centro, Ciudad</span>
+                            </div>
+                        </div>
+                        <div class="contact-item fade-in">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong data-translate="phone">Teléfono:</strong><br>
+                                <span>+57 321 456 7890</span>
+                            </div>
+                        </div>
+                        <div class="contact-item fade-in">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong data-translate="hours">Horarios:</strong><br>
+                                <span data-translate="hours-detail">Lun-Sáb 8AM-7PM</span>
+                            </div>
+                        </div>
+                        <div class="contact-item fade-in">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong data-translate="email">Email:</strong><br>
+                                <span>info@techrepairpro.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Google Maps Integration Buttons -->
+                    <div style="margin-top: 2rem;">
+                        <a href="https://maps.google.com/?q=TechRepair+Pro" target="_blank" class="btn-primary" style="margin-right: 1rem;">
+                            <i class="fab fa-google"></i>
+                            <span data-translate="google-maps">Ver en Google Maps</span>
+                        </a>
+                        <a href="https://maps.apple.com/?q=TechRepair+Pro" target="_blank" class="btn-primary">
+                            <i class="fab fa-apple"></i>
+                            <span data-translate="apple-maps">Ver en Apple Maps</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/573214567890?text=Hola,%20necesito%20información%20sobre%20reparación%20de%20celulares" 
+       class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Language translations
+        const translations = {
+            es: {
+                'logo': 'TechRepair Pro',
+                'nav-services': 'Servicios',
+                'nav-products': 'Productos',
+                'nav-location': 'Ubicación',
+                'hero-title': 'Reparación Profesional de Celulares',
+                'hero-subtitle': 'Servicio rápido, confiable y garantizado. Especialistas en pantallas, baterías y más. Vidrios templados y accesorios de alta calidad.',
+                'hero-services': 'Ver Servicios',
+                'hero-whatsapp': 'Contactar por WhatsApp',
+                'services-title': 'Nuestros Servicios',
+                'service-screen': 'Reparación de Pantallas',
+                'service-screen-desc': 'Cambio de pantallas LCD y OLED con garantía de 3 meses. Trabajamos con todas las marcas: iPhone, Samsung, Huawei, Xiaomi y más.',
+                'service-battery': 'Cambio de Baterías',
+                'service-battery-desc': 'Baterías originales y compatibles de alta calidad. Recupera la autonomía de tu celular con garantía extendida.',
+                'service-water': 'Reparación por Agua',
+                'service-water-desc': 'Servicio de emergencia 24/7 para daños por líquidos. Limpieza especializada y recuperación de datos.',
+                'service-motherboard': 'Reparación de Placa',
+                'service-motherboard-desc': 'Microsoldadura y reparación de componentes. Solucionamos problemas de carga, audio y conectividad.',
+                'service-unlock': 'Liberación de Equipos',
+                'service-unlock-desc': 'Liberación por IMEI para todas las operadoras. Servicio rápido y seguro con garantía total.',
+                'service-maintenance': 'Mantenimiento',
+                'service-maintenance-desc': 'Limpieza profunda, actualización de software y optimización del rendimiento de tu dispositivo.',
+                'products-title': 'Productos y Accesorios',
+                'product-tempered': 'Vidrios Templados',
+                'product-tempered-desc': 'Protección premium 9H, anti-impacto y anti-rayas. Instalación gratuita incluida.',
+                'product-cases': 'Estuches y Fundas',
+                'product-cases-desc': 'Gran variedad de estuches resistentes, transparentes, con soporte y antigolpes.',
+                'product-chargers': 'Cargadores',
+                'product-chargers-desc': 'Cargadores originales y compatibles, cables USB-C, Lightning y micro USB de alta velocidad.',
+                'product-audio': 'Audífonos',
+                'product-audio-desc': 'Audífonos Bluetooth, con cable, manos libres y de alta fidelidad para todos los gustos.',
+                'product-powerbank': 'Power Banks',
+                'product-powerbank-desc': 'Baterías portátiles de 10,000 a 30,000 mAh. Carga rápida y múltiples puertos.',
+                'product-parts': 'Repuestos Originales',
+                'product-parts-desc': 'Pantallas, baterías, cámaras y otros componentes originales con garantía extendida.',
+                'location-title': 'Nuestra Ubicación',
+                'find-us': 'Encuéntranos Fácilmente',
+                'map-description': 'Estamos ubicados en el centro de la ciudad, fácil acceso y parqueadero disponible',
+                'address': 'Dirección:',
+                'address-detail': 'Calle 123 #45-67, Centro, Ciudad',
+                'phone': 'Teléfono:',
+                'hours': 'Horarios:',
+                'hours-detail': 'Lun-Sáb 8AM-7PM',
+                'email': 'Email:',
+                'google-maps': 'Ver en Google Maps',
+                'apple-maps': 'Ver en Apple Maps'
+            },
+            en: {
+                'logo': 'TechRepair Pro',
+                'nav-services': 'Services',
+                'nav-products': 'Products',
+                'nav-location': 'Location',
+                'hero-title': 'Professional Cell Phone Repair',
+                'hero-subtitle': 'Fast, reliable and guaranteed service. Specialists in screens, batteries and more. High-quality tempered glass and accessories.',
+                'hero-services': 'View Services',
+                'hero-whatsapp': 'Contact via WhatsApp',
+                'services-title': 'Our Services',
+                'service-screen': 'Screen Repair',
+                'service-screen-desc': 'LCD and OLED screen replacement with 3-month warranty. We work with all brands: iPhone, Samsung, Huawei, Xiaomi and more.',
+                'service-battery': 'Battery Replacement',
+                'service-battery-desc': 'High-quality original and compatible batteries. Restore your phone\'s autonomy with extended warranty.',
+                'service-water': 'Water Damage Repair',
+                'service-water-desc': '24/7 emergency service for liquid damage. Specialized cleaning and data recovery.',
+                'service-motherboard': 'Motherboard Repair',
+                'service-motherboard-desc': 'Micro-soldering and component repair. We solve charging, audio and connectivity problems.',
+                'service-unlock': 'Phone Unlocking',
+                'service-unlock-desc': 'IMEI unlocking for all carriers. Fast and secure service with full warranty.',
+                'service-maintenance': 'Maintenance',
+                'service-maintenance-desc': 'Deep cleaning, software updates and performance optimization of your device.',
+                'products-title': 'Products and Accessories',
+                'product-tempered': 'Tempered Glass',
+                'product-tempered-desc': '9H premium protection, anti-impact and anti-scratch. Free installation included.',
+                'product-cases': 'Cases and Covers',
+                'product-cases-desc': 'Wide variety of resistant, transparent, with stand and shock-proof cases.',
+                'product-chargers': 'Chargers',
+                'product-chargers-desc': 'Original and compatible chargers, high-speed USB-C, Lightning and micro USB cables.',
+                'product-audio': 'Headphones',
+                'product-audio-desc': 'Bluetooth, wired, hands-free and high-fidelity headphones for all tastes.',
+                'product-powerbank': 'Power Banks',
+                'product-powerbank-desc': 'Portable batteries from 10,000 to 30,000 mAh. Fast charging and multiple ports.',
+                'product-parts': 'Original Parts',
+                'product-parts-desc': 'Screens, batteries, cameras and other original components with extended warranty.',
+                'location-title': 'Our Location',
+                'find-us': 'Find Us Easily',
+                'map-description': 'We are located in the city center, easy access and parking available',
+                'address': 'Address:',
+                'address-detail': '123 Main Street #45-67, Downtown, City',
+                'phone': 'Phone:',
+                'hours': 'Hours:',
+                'hours-detail': 'Mon-Sat 8AM-7PM',
+                'email': 'Email:',
+                'google-maps': 'View on Google Maps',
+                'apple-maps': 'View on Apple Maps'
+            }
+        };
+
+        // Global variables
+        let currentLanguage = 'es'; // Default to Spanish
+        let isMenuOpen = false;
+
+        // Language detection
+        function detectLanguage() {
+            const userLang = navigator.language || navigator.userLanguage;
+            const langCode = userLang.substring(0, 2);
+            
+            // If browser language is English, switch to English
+            if (langCode === 'en') {
+                currentLanguage = 'en';
+                document.getElementById('current-lang').textContent = 'EN';
+                updateTexts();
+            }
+        }
+
+        // Language functions
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
+            document.getElementById('current-lang').textContent = currentLanguage.toUpperCase();
+            updateTexts();
+        }
+
+        function updateTexts() {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[currentLanguage] && translations[currentLanguage][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[currentLanguage][key];
+                    } else {
+                        element.textContent = translations[currentLanguage][key];
+                    }
+                }
+            });
+        }
+
+        // Mobile menu
+        function toggleMobileMenu() {
+            isMenuOpen = !isMenuOpen;
+            const navLinks = document.getElementById('nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn i');
+            
+            if (isMenuOpen) {
+                navLinks.classList.add('active');
+                menuBtn.classList.remove('fa-bars');
+                menuBtn.classList.add('fa-times');
+            } else {
+                navLinks.classList.remove('active');
+                menuBtn.classList.remove('fa-times');
+                menuBtn.classList.add('fa-bars');
+            }
+        }
+
+        // Smooth scrolling
+        function smoothScroll(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Header scroll effect
+        function handleHeaderScroll() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+            const windowHeight = window.innerHeight;
+            const scrolled = window.scrollY;
+
+            elements.forEach(element => {
+                const elementTop = element.offsetTop;
+                const elementHeight = element.offsetHeight;
+                const elementVisible = 150;
+
+                if (scrolled + windowHeight - elementVisible > elementTop) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            detectLanguage();
+            updateTexts();
+            animateOnScroll();
+
+            // Add click handlers for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = this.getAttribute('href');
+                    if (target !== '#') {
+                        smoothScroll(target);
+                        // Close mobile menu if open
+                        if (isMenuOpen) {
+                            toggleMobileMenu();
+                        }
+                    }
+                });
+            });
+        });
+
+        // Event listeners
+        window.addEventListener('scroll', function() {
+            handleHeaderScroll();
+            animateOnScroll();
+        });
+
+        // WhatsApp integration with language support
+        function updateWhatsAppLinks() {
+            const whatsappButtons = document.querySelectorAll('a[href*="wa.me"]');
+            const message = currentLanguage === 'es' 
+                ? 'Hola,%20necesito%20información%20sobre%20reparación%20de%20celulares'
+                : 'Hello,%20I%20need%20information%20about%20cell%20phone%20repair';
+            
+            whatsappButtons.forEach(button => {
+                const href = button.getAttribute('href');
+                const baseUrl = href.split('?')[0];
+                button.setAttribute('href', `${baseUrl}?text=${message}`);
+            });
+        }
+
+        // Update WhatsApp links when language changes
+        document.querySelector('.language-toggle').addEventListener('click', function() {
+            setTimeout(updateWhatsAppLinks, 100);
+        });
+
+        // Initialize WhatsApp links
+        updateWhatsAppLinks();
+
+        // Performance optimization
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(function() {
+                handleHeaderScroll();
+                animateOnScroll();
+            }, 10);
+        });
+    </script>
+</body>
+</html>
